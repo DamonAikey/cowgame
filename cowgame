@@ -1,0 +1,41 @@
+export default function CowGame() {
+  const [cowPosition, setCowPosition] = React.useState(50);
+  const [score, setScore] = React.useState(0);
+
+  function moveCow(direction) {
+    setCowPosition((prev) => {
+      let newPosition = prev + direction * 10;
+      if (newPosition < 0) newPosition = 0;
+      if (newPosition > 90) newPosition = 90;
+      return newPosition;
+    });
+    setScore((prev) => prev + 1);
+  }
+
+  return (
+    <div className="flex flex-col items-center p-4">
+      <h1 className="text-xl font-bold">Cow Game</h1>
+      <div className="relative w-64 h-40 bg-green-500 border mt-4">
+        <div
+          className="absolute w-10 h-10 bg-white border border-black rounded-full"
+          style={{ left: `${cowPosition}%`, bottom: "10%" }}
+        ></div>
+      </div>
+      <div className="mt-4 flex gap-4">
+        <button
+          className="px-4 py-2 bg-blue-500 text-white rounded"
+          onClick={() => moveCow(-1)}
+        >
+          Left
+        </button>
+        <button
+          className="px-4 py-2 bg-red-500 text-white rounded"
+          onClick={() => moveCow(1)}
+        >
+          Right
+        </button>
+      </div>
+      <p className="mt-2">Score: {score}</p>
+    </div>
+  );
+}
